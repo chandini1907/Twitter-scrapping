@@ -1,0 +1,19 @@
+#import libraries
+
+import streamlit as st
+import pandas as pd
+
+#Add discription of the app
+st.title("Twitter Scrapper")
+
+#Add user input options
+
+with st.form(key='Twitter_form'):
+    search_term=st.text_input(label='What do you want to search for?')
+    limit=st.text_input(label='How many tweets do you want to get?')
+    limit=st.text_input(label="Start date")
+    limit=st.text_input(label="End date")
+    submit_button=st.form_submit_button(label="upload into Mongo DB")
+    submit_button=st.form_submit_button(label="csv file")
+    submit_button=st.form_submit_button(label="json file")
+    submit_button=st.form_submit_button(label='Search')
