@@ -1,0 +1,30 @@
+#import libraries
+
+import snscrape.modules.twitter as sntwitter
+import pandas as pd
+
+#create a list to store twitter data
+
+tweets_list1=[]
+
+#Adding user input options
+
+username=input("Enter Your Keyword:")  
+number=int(input("How many tweets do you want to scrape:"))
+
+# search username using scraper module
+
+for i,tweet in enumerate(sntwitter.TwitterSearchScraper('{}'.format(username)).get_items()):
+    if i>number: 
+        break 
+    tweets_list1.append([tweet.date, tweet.id, tweet.content, tweet.url,tweet.user.username,tweet.lang,tweet.hashtags,tweet.replyCount,tweet.retweetCount,tweet.likeCount])
+    
+# Creating a dataframe from the tweets list above using pandas 
+
+df = pd.DataFrame(tweets_list1, columns=['Date', 'Tweet Id', 'Text', 'url','Username','Language','Hashtags','ReplyCount','RetweetCount','LikeCount'])
+
+#create a csv and json file
+
+df.to_csv(f'{username}.csv',mode='a')
+df=pd.read_csv(f'{username}.csv',encoding='unicode_escape')
+df.to_json(f'{username}.json',orient='records',lines=True)
